@@ -13,7 +13,7 @@ gPluginName = '';
 
 gShowConsoleDebugMessages = true;  -- Disable debug messages to console
 
-gMsgDelay = 2;  -- Delay before send message
+gMsgDelay = 3;  -- Delay before send message
 gWarningsBeforeKick = 2;  -- How many warnings before kick
 
 -------------------------------------------------------------------------------
@@ -27,30 +27,13 @@ function Initialize(Plugin)
   local pluginDir = cRoot:Get():GetPluginManager():GetCurrentPlugin():GetLocalFolder();
 
   local msgStorageInitError = "Database initialize error";
+  local msgLoadMsgLocaleFail = "Can not load message for en_US locale";
 
   console_log('-------------------------------------');
   console_log(gPluginName .. " initialize...")
 
   -- Load hooks
   hooks();
-
-  -- Load the InfoReg shared library:
-  -- dofile(cPluginManager:GetPluginsPath() .. "/InfoReg.lua")
-
-  -- Bind all the console commands:
-  -- RegisterPluginInfoConsoleCommands()
-
-  -- Bind all the commands (userspace):
-  -- RegisterPluginInfoCommands()
-
-  -- Prepare storage for exports
-  -- gStorage = cStorage:new(pluginDir, 'upvoting.sqlite3');
-
-  -- Create storage
- --  if not gStorage:init() then
- --    console_log(msgStorageInitError, 2);
- --    return false;
- --  end
 
   -- Nice message :)
   console_log(gPluginName ..": Initialized " .. gPluginName .. " v." .. Plugin:GetVersion())

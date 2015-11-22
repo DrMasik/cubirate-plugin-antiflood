@@ -26,6 +26,13 @@ function msgCheck(aPlayer)
     return false;
   end
 
+  -- console_log(os.time(), 1);
+
+  -- console_log("Client locale is ".. aPlayer:GetClientHandle():GetLocale());
+
+  msgTooManySpam = "Too many spam from you (flood).";
+  msgTooManyFlood = "Too many flood from you. You will be kicked next time";
+
   -- Get player world
   local world = aPlayer:GetWorld();
   local plName = aPlayer:GetName();
@@ -44,13 +51,15 @@ function msgCheck(aPlayer)
     -- Increase warnings count
     gPlayers[plUID]:increaseWarnings();
 
+    -- console_log("Warnings count: ".. gPlayers[plUID]:getWarningsCount(), 1);
+
     -- Check warnings limit
     if gPlayers[plUID]:getWarningsCount() > gWarningsBeforeKick then
       -- Delete player object
       gPlayers[plUID] = nil;
 
       -- Kick player
-      aPlayer:GetClientHandle():Kick("Too many spam from you (flood).");
+      aPlayer:GetClientHandle():Kick(msgTooManySpam);
 
       -- Do not show message
       return true;
@@ -60,7 +69,7 @@ function msgCheck(aPlayer)
     gPlayers[plUID]:setLastMsgTime(os.time());
 
     -- Show player warning message
-    aPlayer:SendMessageWarning("Too many flood from you. You will be kicked next time");
+    aPlayer:SendMessageWarning(msgTooManyFlood);
 
     -- Do not show player messge
     return true;
